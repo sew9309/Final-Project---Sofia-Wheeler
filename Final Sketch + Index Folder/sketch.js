@@ -1,5 +1,11 @@
+let blohsh;
+
 let screen = 0;
 let mgr;
+
+function preload() {
+	blohsh = loadImage('Assets/Blohsh.png');
+}
 
 function setup() {
 	createCanvas(windowWidth, windowHeight);
@@ -56,6 +62,17 @@ function Intro()
     }
 
     this.draw = function() {
+
+    for (let i = 0; i < windowWidth; i += 100){
+//     	for (let j = 0; j < windowHeight; i += 100){
+    image(blohsh, i, 0, 100, 100);
+// }
+}
+
+ for (let i = 100; i < windowHeight; i += 100){
+    image(blohsh, 0, i, 100, 100);
+}
+
     rectMode(CENTER);
 	fill(255);
 	rect(width/2, height/2, 200, 50, 50);
