@@ -63,15 +63,16 @@ function Intro()
 
     this.draw = function() {
 
-    for (let i = 0; i < windowWidth; i += 100){
-//     	for (let j = 0; j < windowHeight; i += 100){
-    image(blohsh, i, 0, 100, 100);
-// }
-}
+    	//Grid of Blohsh
+    	//Grid inspired by https://editor.p5js.org/joeyklee/sketches/SkjS8AFYX
+    	let blohshW = blohsh.width*0.1;
+    	let blohshH = blohsh.height*0.1;
 
- for (let i = 100; i < windowHeight; i += 100){
-    image(blohsh, 0, i, 100, 100);
-}
+    	for (let x = 0; x < windowWidth; x += blohshW){
+    		for (let y = 0; y < windowHeight; y += blohshH){
+    			image(blohsh, x, y, blohshW, blohshH);
+    		}
+    	}
 
     rectMode(CENTER);
 	fill(255);
