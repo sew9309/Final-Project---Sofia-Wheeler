@@ -1,5 +1,6 @@
 let blohsh;
 let studio;
+let billieback;
 
 let screen = 0;
 let mgr;
@@ -8,6 +9,7 @@ function preload() {
 	blohsh = loadImage('Assets/Blohsh.png');
     studio = loadImage('Assets/billiestudio.jpg');
     sketchbook = loadImage('Assets/sketchbook.png');
+    billieback = loadImage('Assets/billieback.png');
 }
 
 function setup() {
@@ -24,6 +26,7 @@ function setup() {
     mgr.addScene ( BlohshAnimation );
     mgr.addScene ( Studio );
     mgr.addScene ( Sketchbook );
+    mgr.addScene ( InjectionScene );
   //  mgr.addScene ( Animation3 );
 
     mgr.showNextScene();
@@ -106,7 +109,7 @@ function Intro()
 }
 
 // Main games scene constructor function
-function BlohshAnimation()
+function BlohshAnimation()//Animated Blohsh when switching between scenes
 {
     this.setup = function() {
     }
@@ -125,7 +128,7 @@ function BlohshAnimation()
     }
 }
 
-function Studio()
+function Studio()//Studio where you can click around to explore
 {
     this.setup = function() {
     background(0,255,0);
@@ -146,9 +149,13 @@ function Studio()
     this.mouseClicked = function() {
         this.sceneManager.showScene( Sketchbook );
     }
+    this.keyPressed = function() {
+        // switch the scene
+        this.sceneManager.showScene( InjectionScene );
+    }
 } 
 
-function Sketchbook()
+function Sketchbook()//Billie's sketchbook. Starts with her sketches. Last page is where user can use Billie-inspired brushes to make their own sketch.
 {
     this.setup = function() {
     }
@@ -158,6 +165,26 @@ function Sketchbook()
         tint(255, 255, 255);
         image(sketchbook, width/2, height/2);
         noTint();
+    }
+    
+    // this.keyPressed = function() {
+    //     // switch the scene
+    //     this.sceneManager.showScene( Studio );
+    // }
+}
+
+function InjectionScene() 
+//Injection scene uses the syringe from Alex's "Death Row" project. I was able to isolate the syringe, but I can't get it to allow the user to inject liquid.
+//https://www.openprocessing.org/sketch/997295
+{
+    this.setup = function() {
+    }
+
+    this.draw = function() {
+    	syringe = new Injection();
+
+        image(billieback, width/2, height/2);
+        syringe.display();
     }
     
     // this.keyPressed = function() {
