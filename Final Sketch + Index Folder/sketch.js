@@ -1,14 +1,19 @@
 let blohsh;
+let studio;
 
 let screen = 0;
 let mgr;
 
 function preload() {
 	blohsh = loadImage('Assets/Blohsh.png');
+    studio = loadImage('Assets/billiestudio.jpg');
+    sketchbook = loadImage('Assets/sketchbook.png');
 }
 
 function setup() {
-	createCanvas(windowWidth, windowHeight);
+	createCanvas(1280, 720);
+    // print(windowWidth);
+    // print(windowHeight);
 	background(100);
 
 	mgr = new SceneManager();
@@ -16,7 +21,9 @@ function setup() {
 	// Preload scenes. Preloading is normally optional
     // ... but needed if showNextScene() is used.
     mgr.addScene ( Intro );
-    mgr.addScene ( Game );
+    mgr.addScene ( BlohshAnimation );
+    mgr.addScene ( Studio );
+    mgr.addScene ( Sketchbook );
   //  mgr.addScene ( Animation3 );
 
     mgr.showNextScene();
@@ -33,6 +40,11 @@ function draw() {
 	
 }
 
+function mouseClicked()
+{
+    mgr.handleEvent("mouseClicked");
+}
+
 function keyPressed()
 {
     // You can optionaly handle the key press at global level...
@@ -43,6 +55,9 @@ function keyPressed()
             break;
         case '2':
             mgr.showScene( Game );
+            break;
+        case '3':
+            mgr.showScene( Studio );
             break;
       //  case '3':
        //     mgr.showScene( Animation3 );
@@ -68,13 +83,16 @@ function Intro()
     	let blohshW = blohsh.width*0.1;
     	let blohshH = blohsh.height*0.1;
 
-    	for (let x = 0; x < windowWidth; x += blohshW){
-    		for (let y = 0; y < windowHeight; y += blohshH){
+    	for (let x = 0; x < width; x += blohshW){
+    		for (let y = 0; y < height; y += blohshH){
     			image(blohsh, x, y, blohshW, blohshH);
     		}
     	}
 
+//Slider button
     rectMode(CENTER);
+    fill(0);
+    rect(width/2, height/2, 275, 75, 25);
 	fill(255);
 	rect(width/2, height/2, 200, 50, 50);
 	fill(0, 255, 0);
@@ -83,17 +101,67 @@ function Intro()
 
     this.keyPressed = function() {
         // switch the scene
-        this.sceneManager.showScene( Game );
+        this.sceneManager.showScene( BlohshAnimation );
     }
 }
 
 // Main games scene constructor function
-function Game()
+function BlohshAnimation()
 {
     this.setup = function() {
     }
 
     this.draw = function() {
-			background(255,0,0);
+        let blohshW = blohsh.width*0.1;
+        let blohshH = blohsh.height*0.1;
+
+		background(255,0,0);
+        image(blohsh, width/2,height/2, blohshW, blohshH);
+    }
+    
+    this.keyPressed = function() {
+        // switch the scene
+        this.sceneManager.showScene( Studio );
+    }
+}
+
+function Studio()
+{
+    this.setup = function() {
+    background(0,255,0);
+    }
+
+    this.draw = function() {
+        let blohshW = blohsh.width*0.03;
+        let blohshH = blohsh.height*0.03;
+
+        //noTint();
+        imageMode (CENTER);
+        image(studio, width/2, height/2, width, height);
+        //tint(0, 0, 0);
+        image(blohsh, 125, 75, blohshW, blohshH);//book
+        image(blohsh, 100, 600, blohshW, blohshH);//piano keyboard
+    }
+
+    this.mouseClicked = function() {
+        this.sceneManager.showScene( Sketchbook );
     }
 } 
+
+function Sketchbook()
+{
+    this.setup = function() {
+    }
+
+    this.draw = function() {
+        background(255,0,0);
+        tint(255, 255, 255);
+        image(sketchbook, width/2, height/2);
+        noTint();
+    }
+    
+    // this.keyPressed = function() {
+    //     // switch the scene
+    //     this.sceneManager.showScene( Studio );
+    // }
+}
