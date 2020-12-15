@@ -2,6 +2,12 @@ let blohsh;
 let studio;
 let billieback;
 
+var brushes = [];
+var blohshes;
+var billielogo;
+var billielogoImg;
+
+
 let screen = 0;
 let mgr;
 
@@ -10,6 +16,8 @@ function preload() {
     studio = loadImage('Assets/billiestudio.jpg');
     sketchbook = loadImage('Assets/sketchbook.png');
     billieback = loadImage('Assets/billieback.png');
+    //badguy = loadSound('Assets/badguy.mp3');
+    billielogoImg = loadImage('Assets/billielogo.png');
 }
 
 function setup() {
@@ -17,6 +25,10 @@ function setup() {
     // print(windowWidth);
     // print(windowHeight);
 	background(100);
+
+    billielogo = createSprite(width/4, height/4);
+    billielogo.addImage(billielogoImg);
+    blohshes = new Group();
 
 	mgr = new SceneManager();
 
@@ -86,20 +98,27 @@ function Intro()
     	let blohshW = blohsh.width*0.1;
     	let blohshH = blohsh.height*0.1;
 
-    	for (let x = 0; x < width; x += blohshW){
-    		for (let y = 0; y < height; y += blohshH){
+    	for (let x = 8; x < width; x += blohshW){
+    		for (let y = 25; y < height-25; y += blohshH){
     			image(blohsh, x, y, blohshW, blohshH);
+
+        //badguy.play();
     		}
     	}
 
 //Slider button
-    rectMode(CENTER);
-    fill(0);
-    rect(width/2, height/2, 275, 75, 25);
-	fill(255);
-	rect(width/2, height/2, 200, 50, 50);
-	fill(0, 255, 0);
-	ellipse(width/2-74, height/2, 50, 50);
+ //    rectMode(CENTER);
+ //    fill(0);
+ //    rect(width/2, height/2, 275, 75, 25);
+	// fill(255);
+	// rect(width/2, height/2, 200, 50, 50);
+	// fill(0, 255, 0);
+	// ellipse(width/2-74, height/2, 50, 50);
+
+    billielogo.position.x = width/2;
+    billielogo.position.y = height/2;
+
+    drawSprites();
     }
 
     this.keyPressed = function() {
@@ -161,16 +180,22 @@ function Sketchbook()//Billie's sketchbook. Starts with her sketches. Last page 
     }
 
     this.draw = function() {
-        background(255,0,0);
-        tint(255, 255, 255);
+
+        background(255);
         image(sketchbook, width/2, height/2);
-        noTint();
+        //brushes[].crosses();
+        //brushes[i].crosses();
     }
     
     // this.keyPressed = function() {
     //     // switch the scene
     //     this.sceneManager.showScene( Studio );
     // }
+    this.mouseClicked = function() {
+    //brushes.push(new Brush(mouseX, mouseY));
+    var c = new Brushes(mouseX, mouseY);
+    brushes.push(c);
+    }
 }
 
 function InjectionScene() 

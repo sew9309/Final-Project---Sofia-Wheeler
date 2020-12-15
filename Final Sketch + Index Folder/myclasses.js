@@ -1,3 +1,10 @@
+// class Blohsh {
+// 	constructor() {
+// 		this.blohshW = blohsh.width*0.1;
+// 		this.blohshH = blohsh.height*0.1;
+// 	}
+// }
+
 class Injection {
 	
 	constructor() {
@@ -48,3 +55,19 @@ class Injection {
 		return millis() - 1000 >= this.deathTime;
 	}
 } //class Injection
+
+class Brushes {
+	constructor(x, y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	crosses() {
+	fill(255);
+		rect(this.x-15, this.y + 20, 50, 15);
+		rect(this.x + 5, this.y, 15, 75);
+		fill(0);
+		rect(this.x, this.y, 15, 75);
+		rect(this.x-15, this.y + 15, 50, 15);
+	}
+}
