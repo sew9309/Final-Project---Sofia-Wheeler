@@ -1,9 +1,35 @@
-// class Blohsh {
-// 	constructor() {
-// 		this.blohshW = blohsh.width*0.1;
-// 		this.blohshH = blohsh.height*0.1;
-// 	}
-// }
+class FallingBlohshes { //Inspired by https://editor.p5js.org/kll/sketches/_1NnYvVhB
+	constructor() {}
+	setup() {
+		billielogo = createSprite(width/2, height/2, 1000, 1000);
+		billielogo.scale = 2;
+		billielogo.addImage(billielogoImg);
+		billielogo.immovable = false;
+		billielogo.mass = 10;
+		billielogo.friction = 0.025;
+		blohshes = new Group();
+	}
+
+	draw() {
+		if (frameCount % 48 == 0) {
+			let dx = int(random(width));
+			let dc = random(100);
+			let blohsh = createSprite(dx, 10, 20, 20);
+			blohsh.addImage(blohshImg);
+			blohsh.scale = 0.10;
+			blohsh.setSpeed(2, 90);
+			blohsh.restitution = 0.3;
+			blohsh.setCollider('circle', 0, 0, 10);
+			blohshes.push(blohsh);
+			
+			// if (billielogo.position.y == 325) {
+			// 	billielogo.immovable = true;
+			// }
+		}
+		blohshes.bounce(billielogo);
+		drawSprites();
+	}
+}
 
 class Injection {
 	

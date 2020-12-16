@@ -1,4 +1,4 @@
-let blohsh;
+//let blohsh;
 let studio;
 let billieback;
 
@@ -6,13 +6,15 @@ var brushes = [];
 var blohshes;
 var billielogo;
 var billielogoImg;
+var blohsh;
+var blohshImg;
 
 
 let screen = 0;
 let mgr;
 
 function preload() {
-	blohsh = loadImage('Assets/Blohsh.png');
+	blohshImg = loadImage('Assets/Blohsh.png');
     studio = loadImage('Assets/billiestudio.jpg');
     sketchbook = loadImage('Assets/sketchbook.png');
     billieback = loadImage('Assets/billieback.png');
@@ -22,14 +24,10 @@ function preload() {
 
 function setup() {
 	createCanvas(1280, 720);
-    // print(windowWidth);
-    // print(windowHeight);
-	background(100);
+    background(0, 0, 80);
 
-    billielogo = createSprite(width/4, height/4);
-    billielogo.addImage(billielogoImg);
+    blohshess = new FallingBlohshes();
     blohshes = new Group();
-
 	mgr = new SceneManager();
 
 	// Preload scenes. Preloading is normally optional
@@ -43,7 +41,7 @@ function setup() {
 
     mgr.showNextScene();
 
-	// for (let i = 0; i < 50; i++) {
+	// for (let i = 0; i < 50; i++) { 
  //    syringes.push(new Syringe());
   }
 
@@ -89,36 +87,26 @@ function keyPressed()
 function Intro()
 {
     this.setup = function() {
+    blohshess.setup();
+
     }
 
     this.draw = function() {
 
+        blohshess.draw();
+
     	//Grid of Blohsh
     	//Grid inspired by https://editor.p5js.org/joeyklee/sketches/SkjS8AFYX
-    	let blohshW = blohsh.width*0.1;
-    	let blohshH = blohsh.height*0.1;
+    	// let blohshW = blohsh.width*0.1;
+    	// let blohshH = blohsh.height*0.1;
 
-    	for (let x = 8; x < width; x += blohshW){
-    		for (let y = 25; y < height-25; y += blohshH){
-    			image(blohsh, x, y, blohshW, blohshH);
+    	// for (let x = 8; x < width; x += blohshW){
+    	// 	for (let y = 25; y < height-25; y += blohshH){
+    	// 		image(blohsh, x, y, blohshW, blohshH);
 
         //badguy.play();
-    		}
-    	}
-
-//Slider button
- //    rectMode(CENTER);
- //    fill(0);
- //    rect(width/2, height/2, 275, 75, 25);
-	// fill(255);
-	// rect(width/2, height/2, 200, 50, 50);
-	// fill(0, 255, 0);
-	// ellipse(width/2-74, height/2, 50, 50);
-
-    billielogo.position.x = width/2;
-    billielogo.position.y = height/2;
-
-    drawSprites();
+    		//}
+    	//}
     }
 
     this.keyPressed = function() {
