@@ -26,24 +26,35 @@ class FallingBlohshes { //Inspired by https://editor.p5js.org/kll/sketches/_1NnY
 			// 	billielogo.immovable = true;
 			// }
 		}
+
 		blohshes.bounce(billielogo);
 		drawSprites();
 }
+
+single(){
+	studioBlohshes = new Group();
+	let blohsh = createSprite(10, 10, 20, 20);
+	blohsh.addImage(blohshImg);
+	blohsh.scale = 0.10;
+	studioBlohshes.push(blohsh);
+}
 }
 
-class SingleBlohsh {
-	constructor() {}
-	draw() {
-	let blohsh = createSprite(mouseX, mouseY);
-	blohsh.addImage(blohshImg);
-	blohsh.scale = 0.10;	
-	}
-}
+// class SingleBlohsh {
+// 	constructor() {
+// 	}
+// 	draw() {
+// 	let singleBlohsh = createSprite(width/2, height/2, 20, 20);
+// 	singleBlohsh.addImage(blohshImg);
+// 	singleBlohsh.scale = 0.10;	
+// 	}
+// }
 
 class Injection {
 	
 	constructor() {
 		this.pushedAmount = 0; // injection progress in pixels
+		this.deathTime = 1000;
 	} //constructor
 
 	display() {

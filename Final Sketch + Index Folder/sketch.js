@@ -9,6 +9,7 @@ var billielogo;
 var billielogoImg;
 var blohsh;
 var blohshImg;
+var studioBlohshes;
 
 
 let screen = 0;
@@ -29,6 +30,8 @@ function setup() {
 
     blohshess = new FallingBlohshes();
     blohshes = new Group();
+    //singleBlohsh = new SingleBlohsh();
+    singleBlohsh = new FallingBlohshes();
 	mgr = new SceneManager();
 
 	// Preload scenes. Preloading is normally optional
@@ -137,18 +140,19 @@ function Intro()
 function Studio()//Studio where you can click around to explore
 {
     this.setup = function() {
-    background(0,255,0);
-    singleBlohsh = new SingleBlohsh();
     }
 
     this.draw = function() {
+        imageMode (CENTER);
+    image(studio, width/2, height/2, width, height);
+    image(billieback, width/2 - 100, height/2-100, width/7, height/7);
+    
         // let blohshW = blohsh.width*0.03;
         // let blohshH = blohsh.height*0.03;
 
         //noTint();
-        imageMode (CENTER);
-        image(studio, width/2, height/2, width, height);
-        singleBlohsh.draw();
+    
+        singleBlohsh.single();
         //tint(0, 0, 0);
         // image(blohsh, 125, 75, blohshW, blohshH);//book
         // image(blohsh, 100, 600, blohshW, blohshH);//piano keyboard
@@ -181,11 +185,11 @@ function Sketchbook()//Billie's sketchbook. Starts with her sketches. Last page 
         //brushes[].crosses();
         //brushes[i].crosses();
     }
+    this.keyPressed = function() {
+        // switch the scene
+        this.sceneManager.showScene( InjectionScene );
+    }
     
-    // this.keyPressed = function() {
-    //     // switch the scene
-    //     this.sceneManager.showScene( Studio );
-    // }
     this.mouseClicked = function() {
     //brushes.push(new Brush(mouseX, mouseY));
     //var c = new BrushStroke(mouseX, mouseY);
@@ -206,7 +210,12 @@ function InjectionScene()
         imageMode(CENTER);
 
         image(billieback, width/2, height/2);
+        scale(0.5);
         syringe.display();
+        push();
+        translate(random(width), random(height));
+        syringe.display();
+        pop();
     }
     
     // this.keyPressed = function() {
