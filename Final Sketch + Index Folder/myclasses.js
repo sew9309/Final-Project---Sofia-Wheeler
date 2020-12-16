@@ -28,6 +28,15 @@ class FallingBlohshes { //Inspired by https://editor.p5js.org/kll/sketches/_1NnY
 		}
 		blohshes.bounce(billielogo);
 		drawSprites();
+}
+}
+
+class SingleBlohsh {
+	constructor() {}
+	draw() {
+	let blohsh = createSprite(mouseX, mouseY);
+	blohsh.addImage(blohshImg);
+	blohsh.scale = 0.10;	
 	}
 }
 
@@ -82,10 +91,10 @@ class Injection {
 	}
 } //class Injection
 
-class Brushes {
+class BrushStroke {
 	constructor(x, y) {
-		this.x = x;
-		this.y = y;
+		this.x = mouseX;
+		this.y = mouseY;
 	}
 
 	crosses() {

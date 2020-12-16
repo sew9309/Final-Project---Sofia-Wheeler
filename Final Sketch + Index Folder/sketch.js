@@ -1,8 +1,9 @@
 //let blohsh;
+let singleBlohsh;
 let studio;
 let billieback;
 
-var brushes = [];
+var brushStrokes = [];
 var blohshes;
 var billielogo;
 var billielogoImg;
@@ -18,7 +19,7 @@ function preload() {
     studio = loadImage('Assets/billiestudio.jpg');
     sketchbook = loadImage('Assets/sketchbook.png');
     billieback = loadImage('Assets/billieback.png');
-    //badguy = loadSound('Assets/badguy.mp3');
+    badguy = loadSound('Assets/badguy.mp3');
     billielogoImg = loadImage('Assets/billielogo.png');
 }
 
@@ -33,7 +34,7 @@ function setup() {
 	// Preload scenes. Preloading is normally optional
     // ... but needed if showNextScene() is used.
     mgr.addScene ( Intro );
-    mgr.addScene ( BlohshAnimation );
+    //mgr.addScene ( BlohshAnimation );
     mgr.addScene ( Studio );
     mgr.addScene ( Sketchbook );
     mgr.addScene ( InjectionScene );
@@ -88,7 +89,6 @@ function Intro()
 {
     this.setup = function() {
     blohshess.setup();
-
     }
 
     this.draw = function() {
@@ -103,54 +103,55 @@ function Intro()
     	// for (let x = 8; x < width; x += blohshW){
     	// 	for (let y = 25; y < height-25; y += blohshH){
     	// 		image(blohsh, x, y, blohshW, blohshH);
-
-        //badguy.play();
     		//}
     	//}
     }
 
     this.keyPressed = function() {
         // switch the scene
-        this.sceneManager.showScene( BlohshAnimation );
+        this.sceneManager.showScene( Studio );
+        badguy.play();
     }
 }
 
 // Main games scene constructor function
-function BlohshAnimation()//Animated Blohsh when switching between scenes
-{
-    this.setup = function() {
-    }
+// function BlohshAnimation()//Animated Blohsh when switching between scenes
+// {
+//     this.setup = function() {
+//     }
 
-    this.draw = function() {
-        let blohshW = blohsh.width*0.1;
-        let blohshH = blohsh.height*0.1;
+//     this.draw = function() {
+//         let blohshW = blohsh.width*0.1;
+//         let blohshH = blohsh.height*0.1;
 
-		background(255,0,0);
-        image(blohsh, width/2,height/2, blohshW, blohshH);
-    }
+// 		background(255,0,0);
+//         image(blohsh, width/2,height/2, blohshW, blohshH);
+//     }
     
-    this.keyPressed = function() {
-        // switch the scene
-        this.sceneManager.showScene( Studio );
-    }
-}
+//     this.keyPressed = function() {
+//         // switch the scene
+//         this.sceneManager.showScene( Studio );
+//     }
+// }
 
 function Studio()//Studio where you can click around to explore
 {
     this.setup = function() {
     background(0,255,0);
+    singleBlohsh = new SingleBlohsh();
     }
 
     this.draw = function() {
-        let blohshW = blohsh.width*0.03;
-        let blohshH = blohsh.height*0.03;
+        // let blohshW = blohsh.width*0.03;
+        // let blohshH = blohsh.height*0.03;
 
         //noTint();
         imageMode (CENTER);
         image(studio, width/2, height/2, width, height);
+        singleBlohsh.draw();
         //tint(0, 0, 0);
-        image(blohsh, 125, 75, blohshW, blohshH);//book
-        image(blohsh, 100, 600, blohshW, blohshH);//piano keyboard
+        // image(blohsh, 125, 75, blohshW, blohshH);//book
+        // image(blohsh, 100, 600, blohshW, blohshH);//piano keyboard
     }
 
     this.mouseClicked = function() {
@@ -170,7 +171,13 @@ function Sketchbook()//Billie's sketchbook. Starts with her sketches. Last page 
     this.draw = function() {
 
         background(255);
+        imageMode(CENTER);
         image(sketchbook, width/2, height/2);
+
+        for(var i = 0; i < brushStrokes.length; i++){
+        brushStrokes[i].crosses();
+    }
+
         //brushes[].crosses();
         //brushes[i].crosses();
     }
@@ -181,8 +188,8 @@ function Sketchbook()//Billie's sketchbook. Starts with her sketches. Last page 
     // }
     this.mouseClicked = function() {
     //brushes.push(new Brush(mouseX, mouseY));
-    var c = new Brushes(mouseX, mouseY);
-    brushes.push(c);
+    //var c = new BrushStroke(mouseX, mouseY);
+    brushStrokes.push(new BrushStroke());
     }
 }
 
@@ -195,6 +202,8 @@ function InjectionScene()
 
     this.draw = function() {
     	syringe = new Injection();
+
+        imageMode(CENTER);
 
         image(billieback, width/2, height/2);
         syringe.display();
